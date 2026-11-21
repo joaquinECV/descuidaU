@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "611452820010",
+    "project_id": "descuidau-36bd0",
+    "storage_bucket": "descuidau-36bd0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611452820010:android:f14892180211ff1adc0153",
+        "android_client_info": {
+          "package_name": "cl.descuidau.descuidau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611452820010-7uqua68okes937ol0ogkvoegmagphek8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4nhYP8AbHUGQkfQ1btDc-HD9IvaTceZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611452820010-7uqua68okes937ol0ogkvoegmagphek8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "611452820010-empg18lp6vad4g9f9mkfhn6vsksc3rlo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cl.descuiau.descuidau"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
