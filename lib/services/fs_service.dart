@@ -19,7 +19,7 @@ class FsService {
   }
 
   Future<QuerySnapshot> getCategorias() {
-    return _db.collection('categorias').orderBy('nombre').get();
+    return _db.collection('categoria').orderBy('nombre').get();
   }
 
   Future<void> crearPublicacion({

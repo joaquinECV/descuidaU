@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
+import 'dart:typed_data';
 
 class PublicacionCard extends StatelessWidget {
   const PublicacionCard({
@@ -12,6 +13,15 @@ class PublicacionCard extends StatelessWidget {
   final Map<String, dynamic> data;
   final VoidCallback onTap;
 
+  Uint8List? _obtenerBytesFoto(dynamic valorFoto) {
+    if (valorFoto is Blob) return valorFoto.bytes;
+    if (valorFoto is Uint8List) return valorFoto;
+    if (valorFoto is List) {
+      return Uint8List.fromList(valorFoto.cast<int>());
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final String titulo = data['titulo'] ?? 'Sin título';
@@ -19,24 +29,21 @@ class PublicacionCard extends StatelessWidget {
     final String categoria = data['categoria'] ?? 'Otros';
     final String estado = data['estado'] ?? 'Vigente';
     final String lugar = data['lugar'] ?? '';
-    final Blob? fotoBlob = data['foto'] is Blob ? data['foto'] as Blob : null;
-
+    final Uint8List? fotoBytes = _obtenerBytesFoto(data['foto']);
     final bool esDevuelto = estado == 'Devuelto';
     final bool esPerdido = tipo == 'Perdido';
 
-    final Color tipoColor =
-        esPerdido ? AppTheme.perdidoColor : AppTheme.encontradoColor;
-    final Color tipoBg =
-        esPerdido ? AppTheme.perdidoBg : AppTheme.encontradoBg;
+    final Color tipoColor = esPerdido ? AppTheme.perdidoColor : AppTheme.encontradoColor;
+    final Color tipoBg = esPerdido ? AppTheme.perdidoBg : AppTheme.encontradoBg;
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-      color: esDevuelto ? const Color(0xFFF5F7F6) : AppTheme.cardSurface,
+      margin: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+      color: esDevuelto ? Color(0xFFF5F7F6) : AppTheme.cardSurface,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(12),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,14 +54,14 @@ class PublicacionCard extends StatelessWidget {
                   child: SizedBox(
                     width: 92,
                     height: 92,
-                    child: fotoBlob != null
+                    child: fotoBytes != null
                         ? Image.memory(
-                            fotoBlob.bytes,
+                            fotoBytes,
                             fit: BoxFit.cover,
                           )
                         : Container(
                             color: Colors.grey.shade200,
-                            child: const Icon(
+                            child: Icon(
                               Icons.image_not_supported_outlined,
                               color: Colors.grey,
                               size: 32,
@@ -63,7 +70,7 @@ class PublicacionCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +78,7 @@ class PublicacionCard extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 8,
                             vertical: 3,
                           ),
@@ -90,16 +97,16 @@ class PublicacionCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Spacer(),
+                        Spacer(),
                         Container(
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 8,
                             vertical: 3,
                           ),
                           decoration: BoxDecoration(
                             color: esDevuelto
                                 ? AppTheme.devueltoBg
-                                : const Color(0xFFE0F2F1),
+                                : Color(0xFFE0F2F1),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
                               color: esDevuelto
@@ -119,7 +126,7 @@ class PublicacionCard extends StatelessWidget {
                                     ? AppTheme.devueltoColor
                                     : AppTheme.accentMint,
                               ),
-                              const SizedBox(width: 4),
+                              SizedBox(width: 4),
                               Text(
                                 estado,
                                 style: TextStyle(
@@ -135,7 +142,7 @@ class PublicacionCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6),
                     Text(
                       titulo,
                       maxLines: 1,
@@ -143,14 +150,12 @@ class PublicacionCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        decoration:
-                            esDevuelto ? TextDecoration.lineThrough : null,
                         color: esDevuelto
                             ? AppTheme.devueltoColor
                             : Colors.black87,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     Row(
                       children: [
                         Icon(
@@ -158,7 +163,7 @@ class PublicacionCard extends StatelessWidget {
                           size: 14,
                           color: Colors.grey.shade600,
                         ),
-                        const SizedBox(width: 4),
+                        SizedBox(width: 4),
                         Expanded(
                           child: Text(
                             categoria,
@@ -173,7 +178,7 @@ class PublicacionCard extends StatelessWidget {
                       ],
                     ),
                     if (lugar.isNotEmpty) ...[
-                      const SizedBox(height: 2),
+                      SizedBox(height: 2),
                       Row(
                         children: [
                           Icon(
@@ -181,7 +186,7 @@ class PublicacionCard extends StatelessWidget {
                             size: 14,
                             color: Colors.grey.shade600,
                           ),
-                          const SizedBox(width: 4),
+                          SizedBox(width: 4),
                           Expanded(
                             child: Text(
                               lugar,
