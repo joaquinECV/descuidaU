@@ -116,5 +116,5 @@ Documentos con el campo `nombre` (`string`): `Electrónica`, `Documentos`, `Ropa
 
 ## Autor
 
-**Joaquín Eduardo Contreras Valenzuela**  
-Estudiante de Informática y Desarrollo de Software — Universidad Técnica Federico Santa María (2026)
+**Joaquín Contreras Valenzuela**  
+Estudiante de Técnico en Informática — Universidad Técnica Federico Santa María (2026)
